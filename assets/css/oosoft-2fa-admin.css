@@ -1,0 +1,131 @@
+/**
+ * Admin panel styles — OOSOFT 2FA Security
+ */
+
+/* ── Badges ─────────────────────────────────────────────────────────────── */
+.oosoft-2fa-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.oosoft-2fa-badge--ok {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.oosoft-2fa-badge--warn {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.oosoft-2fa-badge--error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.oosoft-2fa-badge--info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.oosoft-2fa-badge--warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* ── Settings page ──────────────────────────────────────────────────────── */
+.oosoft-2fa-settings .form-table th {
+    width: 260px;
+}
+
+/* ── User profile section ───────────────────────────────────────────────── */
+#oosoft-2fa-section {
+    margin-top: 30px;
+}
+
+#oosoft-2fa-section h2 {
+    border-bottom: 1px solid #dcdcde;
+    padding-bottom: 10px;
+}
+
+#oosoft-2fa-totp-wizard {
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 16px 20px;
+    max-width: 500px;
+}
+
+#oosoft-2fa-totp-wizard ol {
+    margin: 0;
+    padding-left: 22px;
+}
+
+#oosoft-2fa-totp-wizard li {
+    margin-bottom: 16px;
+}
+
+#oosoft-2fa-qr-code {
+    display: inline-block;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+#oosoft-2fa-qr-code canvas,
+#oosoft-2fa-qr-code img {
+    display: block;
+}
+
+#oosoft-2fa-confirm-code {
+    font-size: 20px;
+    letter-spacing: 4px;
+    text-align: center;
+    width: 130px;
+    margin-right: 8px;
+}
+
+#oosoft-2fa-backup-codes-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    max-width: 360px;
+}
+
+#oosoft-2fa-backup-codes-list li {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    padding: 4px 10px;
+    font-family: monospace;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+/* ── Logs page ──────────────────────────────────────────────────────────── */
+.oosoft-2fa-logs .wp-list-table tr.level-warning td:first-child {
+    border-left: 3px solid #f0b429;
+}
+
+.oosoft-2fa-logs .wp-list-table tr.level-error td:first-child {
+    border-left: 3px solid #de3232;
+}
+
+.oosoft-2fa-logs .wp-list-table tr.level-info td:first-child {
+    border-left: 3px solid #2271b1;
+}

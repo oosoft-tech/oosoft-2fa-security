@@ -1,0 +1,75 @@
+/**
+ * Login / challenge page styles — OOSOFT 2FA Security
+ */
+
+/* ── Challenge wrapper ──────────────────────────────────────────────────── */
+#oosoft-2fa-challenge {
+    margin-top: 8px;
+}
+
+.oosoft-2fa-intro {
+    color: #50575e;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+/* ── Method tabs ────────────────────────────────────────────────────────── */
+.oosoft-2fa-methods {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #dcdcde;
+    padding-bottom: 0;
+}
+
+.oosoft-2fa-method-tab {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #50575e;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    margin-bottom: -2px;
+    transition: background 0.15s;
+}
+
+.oosoft-2fa-method-tab:hover {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.oosoft-2fa-method-tab.active {
+    background: #fff;
+    border-color: #dcdcde;
+    color: #1d2327;
+    font-weight: 600;
+}
+
+/* ── Code input ─────────────────────────────────────────────────────────── */
+#otp_code {
+    font-size: 24px !important;
+    letter-spacing: 6px !important;
+    text-align: center !important;
+    width: 160px !important;
+    padding: 8px 12px !important;
+}
+
+/* ── Status message ─────────────────────────────────────────────────────── */
+#oosoft-2fa-email-otp-status {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 13px;
+    color: #50575e;
+}
+
+#oosoft-2fa-email-otp-status.success {
+    color: #1e7e34;
+}
+
+#oosoft-2fa-email-otp-status.error {
+    color: #c0392b;
+}
