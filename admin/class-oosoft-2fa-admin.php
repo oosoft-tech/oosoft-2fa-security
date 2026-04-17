@@ -266,6 +266,11 @@ class OOSOFT_2FA_Admin {
 			wp_send_json_error( [ 'message' => __( 'Not logged in.', 'oosoft-2fa' ) ], 401 );
 		}
 
+		// Users may only provision 2FA for themselves.
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			wp_send_json_error( [ 'message' => __( 'You do not have permission to perform this action.', 'oosoft-2fa' ) ], 403 );
+		}
+
 		try {
 			$secret = OOSOFT_2FA_TOTP::provision_secret( $user_id );
 		} catch ( Throwable $e ) {

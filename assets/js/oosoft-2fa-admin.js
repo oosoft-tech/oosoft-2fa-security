@@ -57,8 +57,13 @@
                 } );
             } else {
                 // Fallback link when library is unavailable.
-                $qr.html( '<a href="' + $( '<div>' ).text( uri ).html() + '" target="_blank" rel="noopener noreferrer">' +
-                    'Open in authenticator app</a>' );
+                // jQuery .attr() safely encodes the URI — no string concatenation into HTML.
+                var $link = $( '<a>' )
+                    .attr( 'href', uri )
+                    .attr( 'target', '_blank' )
+                    .attr( 'rel', 'noopener noreferrer' )
+                    .text( 'Open in authenticator app' );
+                $qr.empty().append( $link );
             }
 
             $( '#oosoft-2fa-totp-wizard' ).slideDown( 200 );

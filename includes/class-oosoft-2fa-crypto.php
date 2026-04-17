@@ -214,8 +214,13 @@ class OOSOFT_2FA_Crypto {
 	 * @return string Raw key bytes.
 	 */
 	private static function get_encryption_key( int $length ): string {
-		$ikm  = defined( 'AUTH_KEY' ) ? AUTH_KEY : wp_generate_password( 64, true, true );
-		$salt = defined( 'SECURE_AUTH_SALT' ) ? SECURE_AUTH_SALT : 'oosoft-2fa-default-salt';
+		$wp_placeholder = 'put your unique phrase here';
+		$ikm  = ( defined( 'AUTH_KEY' ) && AUTH_KEY !== $wp_placeholder )
+			? AUTH_KEY
+			: wp_generate_password( 64, true, true );
+		$salt = ( defined( 'SECURE_AUTH_SALT' ) && SECURE_AUTH_SALT !== $wp_placeholder )
+			? SECURE_AUTH_SALT
+			: 'oosoft-2fa-default-salt';
 
 		// HKDF using SHA-256.
 		$prk = hash_hmac( 'sha256', $ikm, $salt, true );

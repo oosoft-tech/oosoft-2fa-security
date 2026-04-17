@@ -71,7 +71,11 @@ class OOSOFT_2FA_Public {
 		}
 
 		// Redirect target — honour 'redirect_to' param.
-		$redirect = esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? admin_url() ) );
+		// wp_validate_redirect() restricts the URL to the same host, preventing open redirects.
+		$redirect = wp_validate_redirect(
+			esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) ),
+			admin_url()
+		);
 
 		// Create the interim session.
 		$token = OOSOFT_2FA_User_Manager::create_interim_session( $user->ID, $redirect );

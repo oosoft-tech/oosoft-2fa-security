@@ -38,6 +38,25 @@ if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 	return;
 }
 
+// Warn if WordPress secret keys are still set to the placeholder defaults.
+// TOTP secrets are encrypted using AUTH_KEY + SECURE_AUTH_SALT; placeholder
+// values produce a near-constant encryption key across all default installs.
+add_action( 'admin_notices', function () {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$placeholder = 'put your unique phrase here';
+	$bad_key     = ! defined( 'AUTH_KEY' )         || AUTH_KEY         === $placeholder;
+	$bad_salt    = ! defined( 'SECURE_AUTH_SALT' ) || SECURE_AUTH_SALT === $placeholder;
+	if ( $bad_key || $bad_salt ) {
+		echo '<div class="notice notice-error"><p>' .
+			esc_html__( 'OOSOFT 2FA Security: Your wp-config.php secret keys (AUTH_KEY / SECURE_AUTH_SALT) are not set or are using placeholder values. 2FA secrets cannot be securely encrypted until you update them.', 'oosoft-2fa' ) .
+			' <a href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank" rel="noopener noreferrer">' .
+			esc_html__( 'Generate new keys', 'oosoft-2fa' ) .
+			'</a></p></div>';
+	}
+} );
+
 /**
  * Autoloader for plugin classes.
  *
