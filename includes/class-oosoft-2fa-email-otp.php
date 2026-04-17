@@ -133,15 +133,7 @@ class OOSOFT_2FA_Email_OTP {
 
 		$message = sprintf(
 			/* translators: 1: user display name, 2: site name, 3: OTP code, 4: expiry minutes */
-			__(
-				"Hello %1\$s,\n\n" .
-				"Your two-factor authentication code for %2\$s is:\n\n" .
-				"    %3\$s\n\n" .
-				"This code expires in %4\$d minute(s).\n\n" .
-				"If you did not attempt to log in, please change your password immediately.\n\n" .
-				"-- %2\$s Security Team",
-				'oosoft-2fa-security'
-			),
+			__( "Hello %1\$s,\n\nYour two-factor authentication code for %2\$s is:\n\n    %3\$s\n\nThis code expires in %4\$d minute(s).\n\nIf you did not attempt to log in, please change your password immediately.\n\n-- %2\$s Security Team", 'oosoft-2fa-security' ),
 			esc_html( $user->display_name ),
 			esc_html( $site_name ),
 			$otp, // Numeric only — no HTML context.
