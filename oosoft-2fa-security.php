@@ -10,7 +10,7 @@
  * Author URI:        https://oosoft.co.in
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       oosoft-2fa
+ * Text Domain:       oosoft-2fa-security
  * Domain Path:       /languages
  *
  * @package OOSoft2FA
@@ -32,7 +32,7 @@ define( 'OOSOFT_2FA_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 if ( version_compare( PHP_VERSION, '8.0', '<' ) ) {
 	add_action( 'admin_notices', function () {
 		echo '<div class="notice notice-error"><p>' .
-			esc_html__( 'OOSOFT 2FA Security requires PHP 8.0 or higher.', 'oosoft-2fa' ) .
+			esc_html__( 'OOSOFT 2FA Security requires PHP 8.0 or higher.', 'oosoft-2fa-security' ) .
 			'</p></div>';
 	} );
 	return;
@@ -50,9 +50,9 @@ add_action( 'admin_notices', function () {
 	$bad_salt    = ! defined( 'SECURE_AUTH_SALT' ) || SECURE_AUTH_SALT === $placeholder;
 	if ( $bad_key || $bad_salt ) {
 		echo '<div class="notice notice-error"><p>' .
-			esc_html__( 'OOSOFT 2FA Security: Your wp-config.php secret keys (AUTH_KEY / SECURE_AUTH_SALT) are not set or are using placeholder values. 2FA secrets cannot be securely encrypted until you update them.', 'oosoft-2fa' ) .
+			esc_html__( 'OOSOFT 2FA Security: Your wp-config.php secret keys (AUTH_KEY / SECURE_AUTH_SALT) are not set or are using placeholder values. 2FA secrets cannot be securely encrypted until you update them.', 'oosoft-2fa-security' ) .
 			' <a href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank" rel="noopener noreferrer">' .
-			esc_html__( 'Generate new keys', 'oosoft-2fa' ) .
+			esc_html__( 'Generate new keys', 'oosoft-2fa-security' ) .
 			'</a></p></div>';
 	}
 } );

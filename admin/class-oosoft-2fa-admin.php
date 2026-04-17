@@ -48,8 +48,8 @@ class OOSOFT_2FA_Admin {
 
 	public function register_menus(): void {
 		add_menu_page(
-			__( 'OOSOFT 2FA Security', 'oosoft-2fa' ),
-			__( '2FA Security', 'oosoft-2fa' ),
+			__( 'OOSOFT 2FA Security', 'oosoft-2fa-security' ),
+			__( '2FA Security', 'oosoft-2fa-security' ),
 			self::CAPABILITY,
 			self::SETTINGS_PAGE,
 			[ $this, 'render_settings_page' ],
@@ -59,8 +59,8 @@ class OOSOFT_2FA_Admin {
 
 		add_submenu_page(
 			self::SETTINGS_PAGE,
-			__( 'Settings', 'oosoft-2fa' ),
-			__( 'Settings', 'oosoft-2fa' ),
+			__( 'Settings', 'oosoft-2fa-security' ),
+			__( 'Settings', 'oosoft-2fa-security' ),
 			self::CAPABILITY,
 			self::SETTINGS_PAGE,
 			[ $this, 'render_settings_page' ]
@@ -68,8 +68,8 @@ class OOSOFT_2FA_Admin {
 
 		add_submenu_page(
 			self::SETTINGS_PAGE,
-			__( 'Security Logs', 'oosoft-2fa' ),
-			__( 'Logs', 'oosoft-2fa' ),
+			__( 'Security Logs', 'oosoft-2fa-security' ),
+			__( 'Logs', 'oosoft-2fa-security' ),
 			self::CAPABILITY,
 			self::LOGS_PAGE,
 			[ $this, 'render_logs_page' ]
@@ -84,7 +84,7 @@ class OOSOFT_2FA_Admin {
 		// General section.
 		add_settings_section(
 			'oosoft_2fa_general',
-			__( 'General Settings', 'oosoft-2fa' ),
+			__( 'General Settings', 'oosoft-2fa-security' ),
 			'__return_null',
 			self::SETTINGS_PAGE
 		);
@@ -92,55 +92,55 @@ class OOSOFT_2FA_Admin {
 		$fields = [
 			[
 				'id'       => 'oosoft_2fa_enabled',
-				'label'    => __( 'Enable 2FA Plugin', 'oosoft-2fa' ),
+				'label'    => __( 'Enable 2FA Plugin', 'oosoft-2fa-security' ),
 				'type'     => 'checkbox',
 				'sanitize' => fn( $v ) => (bool) $v,
 			],
 			[
 				'id'       => 'oosoft_2fa_forced_roles',
-				'label'    => __( 'Force 2FA for Roles', 'oosoft-2fa' ),
+				'label'    => __( 'Force 2FA for Roles', 'oosoft-2fa-security' ),
 				'type'     => 'roles',
 				'sanitize' => fn( $v ) => array_map( 'sanitize_key', (array) $v ),
 			],
 			[
 				'id'       => 'oosoft_2fa_email_otp_enabled',
-				'label'    => __( 'Allow Email OTP Fallback', 'oosoft-2fa' ),
+				'label'    => __( 'Allow Email OTP Fallback', 'oosoft-2fa-security' ),
 				'type'     => 'checkbox',
 				'sanitize' => fn( $v ) => (bool) $v,
 			],
 			[
 				'id'       => 'oosoft_2fa_email_otp_expiry',
-				'label'    => __( 'Email OTP Expiry (seconds)', 'oosoft-2fa' ),
+				'label'    => __( 'Email OTP Expiry (seconds)', 'oosoft-2fa-security' ),
 				'type'     => 'number',
 				'sanitize' => fn( $v ) => max( 60, min( 3600, absint( $v ) ) ),
 			],
 			[
 				'id'       => 'oosoft_2fa_max_attempts',
-				'label'    => __( 'Max Failed Attempts', 'oosoft-2fa' ),
+				'label'    => __( 'Max Failed Attempts', 'oosoft-2fa-security' ),
 				'type'     => 'number',
 				'sanitize' => fn( $v ) => max( 1, min( 20, absint( $v ) ) ),
 			],
 			[
 				'id'       => 'oosoft_2fa_window_secs',
-				'label'    => __( 'Failure Window (seconds)', 'oosoft-2fa' ),
+				'label'    => __( 'Failure Window (seconds)', 'oosoft-2fa-security' ),
 				'type'     => 'number',
 				'sanitize' => fn( $v ) => max( 60, min( 3600, absint( $v ) ) ),
 			],
 			[
 				'id'       => 'oosoft_2fa_lockout_secs',
-				'label'    => __( 'Lockout Duration (seconds)', 'oosoft-2fa' ),
+				'label'    => __( 'Lockout Duration (seconds)', 'oosoft-2fa-security' ),
 				'type'     => 'number',
 				'sanitize' => fn( $v ) => max( 60, min( 86400, absint( $v ) ) ),
 			],
 			[
 				'id'       => 'oosoft_2fa_log_retention_days',
-				'label'    => __( 'Log Retention (days)', 'oosoft-2fa' ),
+				'label'    => __( 'Log Retention (days)', 'oosoft-2fa-security' ),
 				'type'     => 'number',
 				'sanitize' => fn( $v ) => max( 7, min( 365, absint( $v ) ) ),
 			],
 			[
 				'id'       => 'oosoft_2fa_trust_proxy_headers',
-				'label'    => __( 'Trust Proxy Headers (Cloudflare / load balancer)', 'oosoft-2fa' ),
+				'label'    => __( 'Trust Proxy Headers (Cloudflare / load balancer)', 'oosoft-2fa-security' ),
 				'type'     => 'checkbox',
 				'sanitize' => fn( $v ) => (bool) $v,
 			],
@@ -217,14 +217,14 @@ class OOSOFT_2FA_Admin {
 
 	public function render_settings_page(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'oosoft-2fa' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'oosoft-2fa-security' ) );
 		}
 		require OOSOFT_2FA_PLUGIN_DIR . 'admin/views/admin-settings.php';
 	}
 
 	public function render_logs_page(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'oosoft-2fa' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'oosoft-2fa-security' ) );
 		}
 		require OOSOFT_2FA_PLUGIN_DIR . 'admin/views/admin-logs.php';
 	}
@@ -263,12 +263,12 @@ class OOSOFT_2FA_Admin {
 
 		$user_id = get_current_user_id();
 		if ( ! $user_id ) {
-			wp_send_json_error( [ 'message' => __( 'Not logged in.', 'oosoft-2fa' ) ], 401 );
+			wp_send_json_error( [ 'message' => __( 'Not logged in.', 'oosoft-2fa-security' ) ], 401 );
 		}
 
 		// Users may only provision 2FA for themselves.
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
-			wp_send_json_error( [ 'message' => __( 'You do not have permission to perform this action.', 'oosoft-2fa' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'You do not have permission to perform this action.', 'oosoft-2fa-security' ) ], 403 );
 		}
 
 		try {
@@ -285,7 +285,7 @@ class OOSOFT_2FA_Admin {
 			}
 			$msg = defined( 'WP_DEBUG' ) && WP_DEBUG
 				? sprintf( '[%s] %s', get_class( $e ), $e->getMessage() )
-				: __( 'Could not generate secret. Check server crypto support.', 'oosoft-2fa' );
+				: __( 'Could not generate secret. Check server crypto support.', 'oosoft-2fa-security' );
 			wp_send_json_error( [ 'message' => $msg ] );
 		}
 
@@ -305,7 +305,7 @@ class OOSOFT_2FA_Admin {
 
 		$user_id = get_current_user_id();
 		if ( ! $user_id ) {
-			wp_send_json_error( [ 'message' => __( 'Not logged in.', 'oosoft-2fa' ) ], 401 );
+			wp_send_json_error( [ 'message' => __( 'Not logged in.', 'oosoft-2fa-security' ) ], 401 );
 		}
 
 		$code = sanitize_text_field( wp_unslash( $_POST['code'] ?? '' ) );
@@ -316,16 +316,16 @@ class OOSOFT_2FA_Admin {
 			OOSOFT_2FA_Logger::log( 'totp_confirm_error', OOSOFT_2FA_Logger::ERROR, $user_id, [ 'error' => $e->getMessage() ] );
 			$msg = defined( 'WP_DEBUG' ) && WP_DEBUG
 				? sprintf( '[%s] %s', get_class( $e ), $e->getMessage() )
-				: __( 'Verification error. Please try again.', 'oosoft-2fa' );
+				: __( 'Verification error. Please try again.', 'oosoft-2fa-security' );
 			wp_send_json_error( [ 'message' => $msg ] );
 		}
 
 		if ( $confirmed ) {
 			OOSOFT_2FA_User_Manager::set_opted_in( $user_id, true );
-			wp_send_json_success( [ 'message' => __( 'Authenticator app configured successfully.', 'oosoft-2fa' ) ] );
+			wp_send_json_success( [ 'message' => __( 'Authenticator app configured successfully.', 'oosoft-2fa-security' ) ] );
 		} else {
 			OOSOFT_2FA_Logger::log( 'totp_confirm_failed', OOSOFT_2FA_Logger::WARNING, $user_id );
-			wp_send_json_error( [ 'message' => __( 'Invalid code. Please try again.', 'oosoft-2fa' ) ] );
+			wp_send_json_error( [ 'message' => __( 'Invalid code. Please try again.', 'oosoft-2fa-security' ) ] );
 		}
 	}
 
@@ -343,7 +343,7 @@ class OOSOFT_2FA_Admin {
 		}
 
 		OOSOFT_2FA_TOTP::disable( $user_id );
-		wp_send_json_success( [ 'message' => __( 'TOTP disabled.', 'oosoft-2fa' ) ] );
+		wp_send_json_success( [ 'message' => __( 'TOTP disabled.', 'oosoft-2fa-security' ) ] );
 	}
 
 	public function ajax_generate_backup_codes(): void {
@@ -360,7 +360,7 @@ class OOSOFT_2FA_Admin {
 			OOSOFT_2FA_Logger::log( 'backup_gen_error', OOSOFT_2FA_Logger::ERROR, $user_id, [ 'error' => $e->getMessage() ] );
 			$msg = defined( 'WP_DEBUG' ) && WP_DEBUG
 				? sprintf( '[%s] %s', get_class( $e ), $e->getMessage() )
-				: __( 'Could not generate backup codes. Please try again.', 'oosoft-2fa' );
+				: __( 'Could not generate backup codes. Please try again.', 'oosoft-2fa-security' );
 			wp_send_json_error( [ 'message' => $msg ] );
 		}
 
@@ -473,7 +473,7 @@ class OOSOFT_2FA_Admin {
 			wp_kses(
 				sprintf(
 					/* translators: %s: link to profile page */
-					__( '<strong>OOSOFT 2FA:</strong> Your role requires Two-Factor Authentication. <a href="%s">Configure it now</a>.', 'oosoft-2fa' ),
+					__( '<strong>OOSOFT 2FA:</strong> Your role requires Two-Factor Authentication. <a href="%s">Configure it now</a>.', 'oosoft-2fa-security' ),
 					$profile_url
 				),
 				[ 'strong' => [], 'a' => [ 'href' => [] ] ]
@@ -524,10 +524,10 @@ class OOSOFT_2FA_Admin {
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'oosoft_2fa_setup_nonce' ),
 			'i18n'    => [
-				'confirmDisable'  => __( 'Are you sure you want to disable TOTP? You should generate backup codes first.', 'oosoft-2fa' ),
-				'confirmRegenerate' => __( 'Regenerating will invalidate all existing backup codes. Continue?', 'oosoft-2fa' ),
-				'copied'          => __( 'Copied!', 'oosoft-2fa' ),
-				'copySecret'      => __( 'Copy secret key', 'oosoft-2fa' ),
+				'confirmDisable'  => __( 'Are you sure you want to disable TOTP? You should generate backup codes first.', 'oosoft-2fa-security' ),
+				'confirmRegenerate' => __( 'Regenerating will invalidate all existing backup codes. Continue?', 'oosoft-2fa-security' ),
+				'copied'          => __( 'Copied!', 'oosoft-2fa-security' ),
+				'copySecret'      => __( 'Copy secret key', 'oosoft-2fa-security' ),
 			],
 		] );
 	}

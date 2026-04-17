@@ -127,7 +127,7 @@ class OOSOFT_2FA_Email_OTP {
 
 		$subject = sprintf(
 			/* translators: %s: site name */
-			__( '[%s] Your two-factor authentication code', 'oosoft-2fa' ),
+			__( '[%s] Your two-factor authentication code', 'oosoft-2fa-security' ),
 			$site_name
 		);
 
@@ -140,7 +140,7 @@ class OOSOFT_2FA_Email_OTP {
 				"This code expires in %4\$d minute(s).\n\n" .
 				"If you did not attempt to log in, please change your password immediately.\n\n" .
 				"-- %2\$s Security Team",
-				'oosoft-2fa'
+				'oosoft-2fa-security'
 			),
 			esc_html( $user->display_name ),
 			esc_html( $site_name ),

@@ -18,15 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Error messages.
 $error_messages = [
-	'invalid_code'  => __( 'The code you entered is incorrect. Please try again.', 'oosoft-2fa' ),
-	'invalid_nonce' => __( 'Security token expired. Please refresh and try again.', 'oosoft-2fa' ),
-	'rate_limited'  => __( 'Too many failed attempts. Please wait a few minutes before trying again.', 'oosoft-2fa' ),
+	'invalid_code'  => __( 'The code you entered is incorrect. Please try again.', 'oosoft-2fa-security' ),
+	'invalid_nonce' => __( 'Security token expired. Please refresh and try again.', 'oosoft-2fa-security' ),
+	'rate_limited'  => __( 'Too many failed attempts. Please wait a few minutes before trying again.', 'oosoft-2fa-security' ),
 ];
 
 $method_labels = [
-	OOSOFT_2FA_User_Manager::METHOD_TOTP   => __( 'Authenticator App', 'oosoft-2fa' ),
-	OOSOFT_2FA_User_Manager::METHOD_EMAIL  => __( 'Email Code', 'oosoft-2fa' ),
-	OOSOFT_2FA_User_Manager::METHOD_BACKUP => __( 'Backup Code', 'oosoft-2fa' ),
+	OOSOFT_2FA_User_Manager::METHOD_TOTP   => __( 'Authenticator App', 'oosoft-2fa-security' ),
+	OOSOFT_2FA_User_Manager::METHOD_EMAIL  => __( 'Email Code', 'oosoft-2fa-security' ),
+	OOSOFT_2FA_User_Manager::METHOD_BACKUP => __( 'Backup Code', 'oosoft-2fa-security' ),
 ];
 
 $active_method = sanitize_key( wp_unslash( $_GET['method'] ?? ( $preferred_method ?? '' ) ) );
@@ -35,14 +35,14 @@ if ( ! in_array( $active_method, $methods, true ) ) {
 }
 
 // Use WordPress login page scaffolding.
-login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
+login_header( __( 'Two-Factor Authentication', 'oosoft-2fa-security' ), '', null );
 ?>
 
 <div id="oosoft-2fa-challenge">
 
 	<?php if ( ! empty( $error ) && isset( $error_messages[ $error ] ) ) : ?>
 		<div id="login_error" class="notice notice-error">
-			<strong><?php esc_html_e( 'Error:', 'oosoft-2fa' ); ?></strong>
+			<strong><?php esc_html_e( 'Error:', 'oosoft-2fa-security' ); ?></strong>
 			<?php echo esc_html( $error_messages[ $error ] ); ?>
 			<?php if ( 'rate_limited' !== $error && $remaining > 0 ) : ?>
 				<br>
@@ -50,7 +50,7 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 					<?php
 					printf(
 						/* translators: %d: attempts remaining */
-						esc_html( _n( '%d attempt remaining.', '%d attempts remaining.', $remaining, 'oosoft-2fa' ) ),
+						esc_html( _n( '%d attempt remaining.', '%d attempts remaining.', $remaining, 'oosoft-2fa-security' ) ),
 						(int) $remaining
 					);
 					?>
@@ -60,12 +60,12 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 	<?php endif; ?>
 
 	<p class="oosoft-2fa-intro">
-		<?php esc_html_e( 'Your account is protected with two-factor authentication. Enter the code for your selected method below.', 'oosoft-2fa' ); ?>
+		<?php esc_html_e( 'Your account is protected with two-factor authentication. Enter the code for your selected method below.', 'oosoft-2fa-security' ); ?>
 	</p>
 
 	<!-- Method selector tabs (only shown when multiple methods available) -->
 	<?php if ( count( $methods ) > 1 ) : ?>
-	<div class="oosoft-2fa-methods" role="tablist" aria-label="<?php esc_attr_e( '2FA methods', 'oosoft-2fa' ); ?>">
+	<div class="oosoft-2fa-methods" role="tablist" aria-label="<?php esc_attr_e( '2FA methods', 'oosoft-2fa-security' ); ?>">
 		<?php foreach ( $methods as $m ) : ?>
 			<a href="<?php echo esc_url( add_query_arg( 'method', $m ) ); ?>"
 			   class="oosoft-2fa-method-tab <?php echo $m === $active_method ? 'active' : ''; ?>"
@@ -82,9 +82,9 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 
 		<?php if ( $active_method === OOSOFT_2FA_User_Manager::METHOD_TOTP ) : ?>
 
-			<p><?php esc_html_e( 'Open your authenticator app and enter the 6-digit code.', 'oosoft-2fa' ); ?></p>
+			<p><?php esc_html_e( 'Open your authenticator app and enter the 6-digit code.', 'oosoft-2fa-security' ); ?></p>
 			<div class="user-pass-wrap">
-				<label for="otp_code"><?php esc_html_e( 'Authentication Code', 'oosoft-2fa' ); ?></label>
+				<label for="otp_code"><?php esc_html_e( 'Authentication Code', 'oosoft-2fa-security' ); ?></label>
 				<div class="wp-pwd">
 					<input type="text" name="otp_code" id="otp_code"
 					       class="input" value="" size="6"
@@ -99,16 +99,16 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 		<?php elseif ( $active_method === OOSOFT_2FA_User_Manager::METHOD_EMAIL ) : ?>
 
 			<p>
-				<?php esc_html_e( 'A one-time code will be sent to your registered email address.', 'oosoft-2fa' ); ?>
+				<?php esc_html_e( 'A one-time code will be sent to your registered email address.', 'oosoft-2fa-security' ); ?>
 			</p>
 			<p>
 				<button type="button" id="oosoft-2fa-send-email-otp" class="button button-secondary">
-					<?php esc_html_e( 'Send code to my email', 'oosoft-2fa' ); ?>
+					<?php esc_html_e( 'Send code to my email', 'oosoft-2fa-security' ); ?>
 				</button>
 				<span id="oosoft-2fa-email-otp-status" aria-live="polite"></span>
 			</p>
 			<div class="user-pass-wrap" id="oosoft-2fa-email-code-wrap" style="display:none">
-				<label for="otp_code"><?php esc_html_e( 'Email Code', 'oosoft-2fa' ); ?></label>
+				<label for="otp_code"><?php esc_html_e( 'Email Code', 'oosoft-2fa-security' ); ?></label>
 				<div class="wp-pwd">
 					<input type="text" name="otp_code" id="otp_code"
 					       class="input" value="" size="6"
@@ -121,9 +121,9 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 
 		<?php elseif ( $active_method === OOSOFT_2FA_User_Manager::METHOD_BACKUP ) : ?>
 
-			<p><?php esc_html_e( 'Enter one of your saved backup codes. Each code can only be used once.', 'oosoft-2fa' ); ?></p>
+			<p><?php esc_html_e( 'Enter one of your saved backup codes. Each code can only be used once.', 'oosoft-2fa-security' ); ?></p>
 			<div class="user-pass-wrap">
-				<label for="otp_code"><?php esc_html_e( 'Backup Code', 'oosoft-2fa' ); ?></label>
+				<label for="otp_code"><?php esc_html_e( 'Backup Code', 'oosoft-2fa-security' ); ?></label>
 				<div class="wp-pwd">
 					<input type="text" name="otp_code" id="otp_code"
 					       class="input" value=""
@@ -141,13 +141,13 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa' ), '', null );
 			<p class="submit">
 				<input type="submit" name="wp-submit" id="wp-submit"
 				       class="button button-primary button-large"
-				       value="<?php esc_attr_e( 'Verify', 'oosoft-2fa' ); ?>">
+				       value="<?php esc_attr_e( 'Verify', 'oosoft-2fa-security' ); ?>">
 			</p>
 		<?php else : ?>
 			<p class="submit" id="oosoft-2fa-email-submit-wrap" style="display:none">
 				<input type="submit" name="wp-submit" id="wp-submit"
 				       class="button button-primary button-large"
-				       value="<?php esc_attr_e( 'Verify', 'oosoft-2fa' ); ?>">
+				       value="<?php esc_attr_e( 'Verify', 'oosoft-2fa-security' ); ?>">
 			</p>
 		<?php endif; ?>
 	</form>

@@ -27,19 +27,19 @@ $total      = $result['total'];
 $page_count = (int) ceil( $total / $per_page );
 
 $level_labels = [
-	OOSOFT_2FA_Logger::INFO    => __( 'Info', 'oosoft-2fa' ),
-	OOSOFT_2FA_Logger::WARNING => __( 'Warning', 'oosoft-2fa' ),
-	OOSOFT_2FA_Logger::ERROR   => __( 'Error', 'oosoft-2fa' ),
+	OOSOFT_2FA_Logger::INFO    => __( 'Info', 'oosoft-2fa-security' ),
+	OOSOFT_2FA_Logger::WARNING => __( 'Warning', 'oosoft-2fa-security' ),
+	OOSOFT_2FA_Logger::ERROR   => __( 'Error', 'oosoft-2fa-security' ),
 ];
 ?>
 <div class="wrap oosoft-2fa-logs">
-	<h1><?php esc_html_e( 'OOSOFT 2FA Security Logs', 'oosoft-2fa' ); ?></h1>
+	<h1><?php esc_html_e( 'OOSOFT 2FA Security Logs', 'oosoft-2fa-security' ); ?></h1>
 
 	<p class="description">
 		<?php
 		printf(
 			/* translators: %d: total log count */
-			esc_html__( 'Showing %d total events.', 'oosoft-2fa' ),
+			esc_html__( 'Showing %d total events.', 'oosoft-2fa-security' ),
 			(int) $total
 		);
 		?>
@@ -49,33 +49,33 @@ $level_labels = [
 	<form method="get" action="">
 		<input type="hidden" name="page" value="oosoft-2fa-logs">
 		<select name="level">
-			<option value=""><?php esc_html_e( '— All Levels —', 'oosoft-2fa' ); ?></option>
+			<option value=""><?php esc_html_e( '— All Levels —', 'oosoft-2fa-security' ); ?></option>
 			<?php foreach ( $level_labels as $val => $label ) : ?>
 				<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $filter_level, $val ); ?>>
 					<?php echo esc_html( $label ); ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
-		<input type="number" name="user_id" placeholder="<?php esc_attr_e( 'User ID', 'oosoft-2fa' ); ?>"
+		<input type="number" name="user_id" placeholder="<?php esc_attr_e( 'User ID', 'oosoft-2fa-security' ); ?>"
 		       value="<?php echo esc_attr( $filter_user_id ?: '' ); ?>" min="1" style="width:100px">
-		<?php submit_button( __( 'Filter', 'oosoft-2fa' ), 'secondary', '', false ); ?>
+		<?php submit_button( __( 'Filter', 'oosoft-2fa-security' ), 'secondary', '', false ); ?>
 	</form>
 
 	<br>
 
 	<?php if ( empty( $items ) ) : ?>
-		<p><?php esc_html_e( 'No log entries found.', 'oosoft-2fa' ); ?></p>
+		<p><?php esc_html_e( 'No log entries found.', 'oosoft-2fa-security' ); ?></p>
 	<?php else : ?>
 		<table class="wp-list-table widefat fixed striped">
 			<thead>
 				<tr>
-					<th scope="col" style="width:50px"><?php esc_html_e( 'ID', 'oosoft-2fa' ); ?></th>
-					<th scope="col" style="width:70px"><?php esc_html_e( 'Level', 'oosoft-2fa' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Event', 'oosoft-2fa' ); ?></th>
-					<th scope="col" style="width:80px"><?php esc_html_e( 'User', 'oosoft-2fa' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'IP Address', 'oosoft-2fa' ); ?></th>
-					<th scope="col"><?php esc_html_e( 'Context', 'oosoft-2fa' ); ?></th>
-					<th scope="col" style="width:160px"><?php esc_html_e( 'Date (UTC)', 'oosoft-2fa' ); ?></th>
+					<th scope="col" style="width:50px"><?php esc_html_e( 'ID', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col" style="width:70px"><?php esc_html_e( 'Level', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Event', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col" style="width:80px"><?php esc_html_e( 'User', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'IP Address', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col"><?php esc_html_e( 'Context', 'oosoft-2fa-security' ); ?></th>
+					<th scope="col" style="width:160px"><?php esc_html_e( 'Date (UTC)', 'oosoft-2fa-security' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

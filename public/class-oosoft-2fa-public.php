@@ -87,7 +87,7 @@ class OOSOFT_2FA_Public {
 		// wp_login_failed will fire and we redirect to the challenge page there.
 		return new WP_Error(
 			'oosoft_2fa_required',
-			esc_html__( 'Two-factor authentication required. Redirecting…', 'oosoft-2fa' )
+			esc_html__( 'Two-factor authentication required. Redirecting…', 'oosoft-2fa-security' )
 		);
 	}
 
@@ -228,19 +228,19 @@ class OOSOFT_2FA_Public {
 		$session = OOSOFT_2FA_User_Manager::get_interim_session( $token );
 
 		if ( null === $session ) {
-			wp_send_json_error( [ 'message' => __( 'Session expired. Please log in again.', 'oosoft-2fa' ) ], 401 );
+			wp_send_json_error( [ 'message' => __( 'Session expired. Please log in again.', 'oosoft-2fa-security' ) ], 401 );
 		}
 
 		$user_id = (int) $session['user_id'];
 
 		if ( OOSOFT_2FA_Rate_Limiter::is_rate_limited( $this->get_client_ip(), $user_id ) ) {
-			wp_send_json_error( [ 'message' => __( 'Too many attempts. Please wait before requesting a new code.', 'oosoft-2fa' ) ], 429 );
+			wp_send_json_error( [ 'message' => __( 'Too many attempts. Please wait before requesting a new code.', 'oosoft-2fa-security' ) ], 429 );
 		}
 
 		if ( OOSOFT_2FA_Email_OTP::send( $user_id ) ) {
-			wp_send_json_success( [ 'message' => __( 'A new code has been sent to your email.', 'oosoft-2fa' ) ] );
+			wp_send_json_success( [ 'message' => __( 'A new code has been sent to your email.', 'oosoft-2fa-security' ) ] );
 		} else {
-			wp_send_json_error( [ 'message' => __( 'Could not send email. Please contact an administrator.', 'oosoft-2fa' ) ] );
+			wp_send_json_error( [ 'message' => __( 'Could not send email. Please contact an administrator.', 'oosoft-2fa-security' ) ] );
 		}
 	}
 
@@ -273,9 +273,9 @@ class OOSOFT_2FA_Public {
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'oosoft_2fa_challenge' ),
 			'i18n'    => [
-				'sending'     => __( 'Sending…', 'oosoft-2fa' ),
-				'codeSent'    => __( 'Code sent. Check your inbox.', 'oosoft-2fa' ),
-				'sendFailed'  => __( 'Failed to send code. Please try again.', 'oosoft-2fa' ),
+				'sending'     => __( 'Sending…', 'oosoft-2fa-security' ),
+				'codeSent'    => __( 'Code sent. Check your inbox.', 'oosoft-2fa-security' ),
+				'sendFailed'  => __( 'Failed to send code. Please try again.', 'oosoft-2fa-security' ),
 			],
 		] );
 	}
