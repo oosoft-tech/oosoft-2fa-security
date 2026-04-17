@@ -68,8 +68,8 @@ login_header( __( 'Two-Factor Authentication', 'oosoft-2fa-security' ), '', null
 	<div class="oosoft-2fa-methods" role="tablist" aria-label="<?php esc_attr_e( '2FA methods', 'oosoft-2fa-security' ); ?>">
 		<?php foreach ( $methods as $m ) : ?>
 			<a href="<?php echo esc_url( add_query_arg( 'method', $m ) ); ?>"
-			   class="oosoft-2fa-method-tab <?php echo $m === $active_method ? 'active' : ''; ?>"
-			   role="tab" aria-selected="<?php echo $m === $active_method ? 'true' : 'false'; ?>">
+			   class="oosoft-2fa-method-tab <?php echo esc_attr( $m === $active_method ? 'active' : '' ); ?>"
+			   role="tab" aria-selected="<?php echo esc_attr( $m === $active_method ? 'true' : 'false' ); ?>">
 				<?php echo esc_html( $method_labels[ $m ] ?? $m ); ?>
 			</a>
 		<?php endforeach; ?>

@@ -102,11 +102,11 @@ $email_available = OOSOFT_2FA_User_Manager::email_otp_available( $uid );
 				<span class="oosoft-2fa-badge oosoft-2fa-badge--ok">&#10003; <?php esc_html_e( 'Available', 'oosoft-2fa-security' ); ?></span>
 				<p class="description">
 					<?php
-					printf(
+					echo wp_kses_post( sprintf(
 						/* translators: %s: email address */
-						esc_html__( 'A one-time code will be sent to %s when you log in.', 'oosoft-2fa-security' ),
+						__( 'A one-time code will be sent to %s when you log in.', 'oosoft-2fa-security' ),
 						'<strong>' . esc_html( $profile_user->user_email ) . '</strong>'
-					);
+					) );
 					?>
 				</p>
 			</td>
