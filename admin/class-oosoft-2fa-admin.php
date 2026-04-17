@@ -172,24 +172,20 @@ class OOSOFT_2FA_Admin {
 	// -----------------------------------------------------------------------
 
 	public function render_field_checkbox( array $args ): void {
-		$id    = esc_attr( $args['id'] );
-		$value = get_option( $args['id'] );
 		printf(
 			'<input type="checkbox" id="%s" name="%s" value="1" %s>',
-			$id,
-			$id,
-			checked( true, (bool) $value, false )
+			esc_attr( $args['id'] ),
+			esc_attr( $args['id'] ),
+			checked( true, (bool) get_option( $args['id'] ), false )
 		);
 	}
 
 	public function render_field_number( array $args ): void {
-		$id    = esc_attr( $args['id'] );
-		$value = absint( get_option( $args['id'] ) );
 		printf(
 			'<input type="number" id="%s" name="%s" value="%d" min="1" class="small-text">',
-			$id,
-			$id,
-			$value
+			esc_attr( $args['id'] ),
+			esc_attr( $args['id'] ),
+			absint( get_option( $args['id'] ) )
 		);
 	}
 
