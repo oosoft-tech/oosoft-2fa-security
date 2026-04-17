@@ -42,7 +42,7 @@ A production-ready Two-Factor Authentication plugin that protects WordPress acco
 ### From source
 
 ```bash
-git clone https://github.com/your-org/oosoft-2fa-security.git
+git clone https://github.com/oosoft-tech/oosoft-2fa-security.git
 cp -r oosoft-2fa-security /path/to/wordpress/wp-content/plugins/
 ```
 
