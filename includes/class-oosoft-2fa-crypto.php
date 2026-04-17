@@ -138,7 +138,7 @@ class OOSOFT_2FA_Crypto {
 		$iv_len  = (int) openssl_cipher_iv_length( $cipher );
 
 		if ( $iv_len <= 0 ) {
-			throw new RuntimeException( 'OpenSSL: could not determine IV length for cipher: ' . $cipher );
+			throw new RuntimeException( 'OpenSSL: could not determine IV length for cipher: ' . esc_html( $cipher ) );
 		}
 
 		$iv  = random_bytes( $iv_len );
@@ -274,7 +274,7 @@ class OOSOFT_2FA_Crypto {
 		for ( $i = 0, $len = strlen( $data ); $i < $len; $i++ ) {
 			$pos = strpos( $chars, $data[ $i ] );
 			if ( false === $pos ) {
-				throw new InvalidArgumentException( 'Invalid Base32 character: ' . $data[ $i ] );
+				throw new InvalidArgumentException( 'Invalid Base32 character: ' . esc_html( $data[ $i ] ) );
 			}
 			$buffer    = ( $buffer << 5 ) | $pos;
 			$bits_left += 5;

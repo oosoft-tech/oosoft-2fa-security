@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- view template included inside a class method, variables are intentionally local.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- filter form uses GET for read-only log queries, no state changes occur.
+
 // Sanitised filter inputs.
 $filter_level   = sanitize_key( wp_unslash( $_GET['level'] ?? '' ) );
 $filter_user_id = absint( $_GET['user_id'] ?? 0 );

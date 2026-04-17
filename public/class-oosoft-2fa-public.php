@@ -72,6 +72,7 @@ class OOSOFT_2FA_Public {
 
 		// Redirect target — honour 'redirect_to' param.
 		// wp_validate_redirect() restricts the URL to the same host, preventing open redirects.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce is unavailable at the authenticate filter stage.
 		$redirect = wp_validate_redirect(
 			esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) ),
 			admin_url()
@@ -116,7 +117,7 @@ class OOSOFT_2FA_Public {
 	 * Hooked to login_init — renders or processes the 2FA challenge.
 	 */
 	public function handle_challenge_page(): void {
-		$action = sanitize_key( wp_unslash( $_GET['action'] ?? '' ) );
+		$action = sanitize_key( wp_unslash( $_GET['action'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only URL param, no sensitive data processed.
 		if ( $action !== self::CHALLENGE_SLUG ) {
 			return;
 		}
@@ -142,7 +143,7 @@ class OOSOFT_2FA_Public {
 		}
 
 		// POST: code submission.
-		if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 			$this->process_challenge( $user_id, $token, $session, $ip );
 			exit;
 		}
@@ -191,7 +192,7 @@ class OOSOFT_2FA_Public {
 
 			// Complete the WordPress login.
 			wp_set_auth_cookie( $user_id, false );
-			do_action( 'wp_login', get_userdata( $user_id )->user_login, get_userdata( $user_id ) );
+			do_action( 'wp_login', get_userdata( $user_id )->user_login, get_userdata( $user_id ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- wp_login is a core WordPress hook.
 
 			$redirect = esc_url_raw( $session['redirect'] ?: admin_url() );
 			wp_safe_redirect( $redirect );
@@ -249,7 +250,7 @@ class OOSOFT_2FA_Public {
 	// -----------------------------------------------------------------------
 
 	public function enqueue_login_assets(): void {
-		$action = sanitize_key( wp_unslash( $_GET['action'] ?? '' ) );
+		$action = sanitize_key( wp_unslash( $_GET['action'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only URL param for asset loading.
 		if ( $action !== self::CHALLENGE_SLUG ) {
 			return;
 		}

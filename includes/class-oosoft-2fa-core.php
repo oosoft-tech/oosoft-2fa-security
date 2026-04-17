@@ -39,8 +39,6 @@ class OOSOFT_2FA_Core {
 	 * Initialise hooks. Called on plugins_loaded.
 	 */
 	public function init(): void {
-		load_plugin_textdomain( 'oosoft-2fa-security', false, dirname( OOSOFT_2FA_PLUGIN_BASENAME ) . '/languages' );
-
 		$this->admin          = new OOSOFT_2FA_Admin();
 		$this->public_handler = new OOSOFT_2FA_Public();
 

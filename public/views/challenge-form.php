@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- view template included inside a class method, variables are intentionally local.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- reading read-only URL params for method selection, no sensitive data processed.
+
 // Error messages.
 $error_messages = [
 	'invalid_code'  => __( 'The code you entered is incorrect. Please try again.', 'oosoft-2fa-security' ),

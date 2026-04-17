@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<td><?php esc_html_e( 'WordPress Cron', 'oosoft-2fa-security' ); ?></td>
 				<td>
-					<?php $next = wp_next_scheduled( 'oosoft_2fa_daily_cron' ); ?>
+					<?php $next = wp_next_scheduled( 'oosoft_2fa_daily_cron' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound ?>
 					<?php if ( $next ) : ?>
 						<span class="oosoft-2fa-badge oosoft-2fa-badge--ok">
 							<?php

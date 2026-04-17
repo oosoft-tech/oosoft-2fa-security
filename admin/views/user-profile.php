@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- view template included inside a class method, variables are intentionally local.
+
 $uid             = $profile_user->ID;
 $totp_enabled    = OOSOFT_2FA_TOTP::is_enabled( $uid );
 $backup_count    = OOSOFT_2FA_Backup_Codes::remaining_count( $uid );
